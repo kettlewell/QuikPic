@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+'''
+QuikSort
+Quick Image Sorting Utility ( qisu ?)
+
+'''
 import os
 import optparse
 import hashlib
@@ -5,7 +11,12 @@ import json
 import shutil
 from xml.dom import minidom
 import multiprocessing # Only for CPU Count
-import Queue
+
+try:
+    import Queue
+except:
+    import queue
+
 import threading
 import time
 import re
@@ -18,7 +29,7 @@ except ImportError:
     exit(1)
 
 
-digest_type = 'sha1'
+digest_type = 'sha224'
 picture_extensions = ['.jpg', '.jpeg', '.psd', '.nef', '.cr2', '.png']
 
 stdout_lock = threading.Lock()
@@ -142,7 +153,7 @@ def dirs_from_image_data(source):
     else:
         dirs.append('unknown date')
     return os.path.join(*dirs)
-    
+
 
 def find_sidecars(img_files):
     sidecars = []
@@ -208,7 +219,7 @@ def handle_files(new_root, file_lists, num_threads):
     directory = build_hashes(file_lists, num_threads)
     if num_threads == 0:
         for digest in directory.keys():
-            handle_file(new_root, digest, directory[digest]) 
+            handle_file(new_root, digest, directory[digest])
         return
 
     threads = []
@@ -246,11 +257,11 @@ def handle_files(new_root, file_lists, num_threads):
         failing_files.append(bad_file)
         bad_files.task_done()
     return failing_files
-  
+
 
 def main():
     print 'Find and sort pictures'
-    parser = optparse.OptionParser('%prog <dir1> <dirN>');
+    parser = optparse.OptionParser('%prog [--verify] [-t num] [-o outdir] <dir1> <dirN>');
     parser.add_option('-o', '--output', help='Root directory for output',
                       action='store', dest='output', default=None)
     parser.add_option('-t', '--threads', help='Number of work threads to use.  ' +
@@ -264,7 +275,7 @@ def main():
         threads = int(opts.threads)
     except ValueError:
         parser.error("Thread count must be an integer")
-    
+
     if not opts.output and not opts.only_verify:
         parser.error("You must specify an output directory")
     elif opts.only_verify:
@@ -272,7 +283,7 @@ def main():
     else:
         outputdir = os.path.abspath(opts.output)
         print "Output directory: %s" % outputdir
-        
+
     if len(args) < 1:
         parser.error("You haven't specified any input directories")
 
