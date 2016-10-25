@@ -1,5 +1,16 @@
-Quick Image Sorting
+QuikSort
 ===================
+Quick Image Sorting
+-------------------
+
+A utility for photographers and pic collectors that will allow you to:
+- sort directories of images quickly
+- remove duplicates
+- organize pictures into YYYY/MM/DD directory structure
+- use SHA2 MD sums for duplicate verification
+- verify mode to verify no duplicates were added
+- TODO: rename the SHA filename with a directory unique filename
+        - ie. from <date>_<sha2>.jpg to directory_unique-1.jpg
 
 # Installation
 
@@ -12,13 +23,15 @@ clone repo
     python setup.py install
 
 
-# background
+# Background
 
 QuikSort is based on the works of [picsort](https://github.com/jhford/picsort)
 
 
 **TODO**:  Update the README to reflect my usage / intentions
+.
 
+----
 
 This is a script that I wrote because I had thousands of raw images on my computer
 that needed to be sorted and imported into Lightroom.  Instead of manually checking
@@ -26,7 +39,7 @@ for duplicates, I decided to make a computer do the work for me.
 
 As implemented, this program is invoked using:
 
-    `python sort.py -o output_directory ~/Pictures`
+    python sort.py -o output_directory ~/Pictures
 
 This will find all pictures in my <code>~/Pictures</code> directory.  For each picture
 found, the program will compute its sha1 checksum to include in the output filename.
@@ -35,7 +48,7 @@ picture was taken, according to exif data.
 
 With this information, the program will copy the image file into a path like this:
 
-    `/Users/jhford/output_directory/NIKON D7000/2014/6/6/DSC_1111_sha1_abcd1234.NEF`
+    /Users/jhford/output_directory/NIKON D7000/2014/6/6/DSC_1111_sha1_abcd1234.NEF
 
 By computing the sha1 checksum, we can ignore duplicates of each source image and only
 have a single copy of each file in the output directory.  Sha1 checksums are a way to
@@ -47,7 +60,7 @@ one with the most recent modified time and suffix the remainders with sidecarN.
 
 If you want to verify your store of photos, you can use the verify mode by doing this:
 
-    `python sort.py --verify output_directory`
+    python sort.py --verify output_directory
 
 This will tell you which files failed to be verified.
 
