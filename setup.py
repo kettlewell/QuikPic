@@ -2,20 +2,20 @@
 
 from setuptools import setup
 
-setup(name='picsort',
-      version='1.0',
+setup(name='QuikPic',
+      version='0.1',
       description='Safely de-duplicate and sort files',
-      author='John H. Ford',
-      author_email='john+picsort.johnford@org',
-      packages=['picsort'],
+      author='Matthew Kettlewell',
+      author_email='matt@kettlewell.net',
+      packages=['QuikPic'],
       entry_points={
         'console_scripts': [
-            'picsort = picsort.sort:main'
+            'quikpick= quickpic.sort:main'
         ]
       },
       install_requires=['exifread'],
-      url='https://github.com/jhford/picsort',
-      license='GPLv2',
-      keywords='photography raw nef cr2',
+      url='https://github.com/kettlewell/QuikPic',
+      license='MIT,
+      keywords='photography photo sort',
 )
 
